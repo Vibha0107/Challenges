@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- displays site properly based on user's device -->
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+    <title>Frontend Mentor | Tip calculator app</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="attribution">
+        <div class="preants" id="preants">
+            <div class="logo-header">
+                <img src="images\logo.svg" alt="" class="logo-icon">
+            </div>
+            <div class="navbar">
+                <ul>
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+
+
+                </ul>
+
+            </div>
+
+            <div class="child">
+                <div class="left">
+                    <div class="bill">
+                        <div class="span-label">
+                            <label>Bill
+
+                            </label >
+                            <span id="span_item"></span>
+                        </div>
+                        
+                        <div class="input-icon">
+                            <img src="images\icon-dollar.svg" alt="" class="icon-image">
+                            <input type="" name="" value="" id="bill" placeholder="0">
+                        </div>
+
+                    </div>
+                    <div class="select_div">
+                        <label> Select Tip %</label>
+
+                            <div class="grid_div">
+                                <button class="class-btn" value="5">5%</button>
+                                <button class="class-btn" value="10"> 10%</button>
+                                <button class="class-btn" value="15">15%</button>
+                                <button class="class-btn" value="25">25%</button>
+                                <button class="class-btn" value="50">50%</button>
+                                <input class="custom-btn" value="" id="custom" onchange="handel()" placeholder="custom">
+                            </div>
+
+                        </div>
+
+
+                        <div class="person_div">
+                            <div class="span-label">
+                                <label>Numbers of people
+
+                            </label >
+                            <span id="span_item1"></span>
+                        </div>
+                        
+                          <div class="input-icon">
+                            <img src="images\icon-person.svg" alt="" class="icon-image">
+                            <input type="" name="" value="" id="person" onkeydown="tipcal()" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="amount">
+                        <label>Tip Amount <br>/person
+                    </label>
+                                <div class="items">
+                                    <img src="images\icon-dollar.svg">
+                                    <label id="bill_p">0.00</label>
+                                </div>
+                            </div>
+
+                            <div class="amount">
+                                <label>Total <br>/person</label>
+                                </label>
+                                <div class="items">
+                                    <img src="images\icon-dollar.svg">
+                                    <label id="total_p">0.00</label>
+                                </div>
+
+                            </div>
+                            <div class="button_1">
+                                <button type="submit" id="reset" onclick="reset()" disabled> RESET</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+</body>
+<script>
+    var btns = document.querySelectorAll(".grid_div .class-btn");
+    var billElm = document.getElementById("bill");
+    var personElm = document.getElementById("person");
+    var bill_p = document.getElementById("bill_p");
+    var total_p = document.getElementById("total_p");
+    var span_item = document.getElementById("span_item");
+    var span_item1 = document.getElementById("span_item1");
+    var resetid = document.getElementById("reset");
+    btns.forEach(item => {
+        item.addEventListener("click", (e) => {
+            btns.forEach(item => {
+                item.className = ("class-btn");
+            });
+            sumtips(e.target.value);
+            item.className += " active";
+        });
+    });
+
+    function handel() {
+        var custom = document.getElementById("custom")
+        custom.style.backgroundColor = "hsl(185, 41%, 84%)";
+        var custom1 = custom.value;
+        console.log(custom1)
+        sumtips(custom1)
+
+
+    }
+
+    function sumtips(btn_values) {
+        var bill = billElm.value;
+        var person = personElm.value;
+        if (bill != 0 && person != 0) {
+            resetid.disabled = false;
+            console.log(btn_values)
+            console.log(person)
+            var tip = (bill * btn_values) / (100 * person);
+            bill_p.innerHTML = Math.round(tip * 100) / 100;
+            console.log(tip)
+            var total = (bill / person) + tip;
+            console.log(total)
+            total_p.innerHTML = Math.round(total * 100) / 100;
+        } else {
+            resetid.disabled = true;
+            billElm.style.border = "2px solid red";
+            span_item.innerHTML = "can't be zero";
+            span_item1.innerHTML = "can't be zero";
+        }
+    }
+
+    function reset() {
+        billElm.value = "0";
+        personElm.value = "0";
+        bill_p.innerHTML = "0.00"
+        total_p.innerHTML = "0.00"
+    }
+</script>
+
+</html>
